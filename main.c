@@ -5,7 +5,7 @@
  * Created on August 24, 2022, 10:36 PM
  * 
  * This demo will be using a single Injora INJO025-270 servo
- * 330 Hz (3030.03us)pulse: 1500us center, 500us min, 2500us max. 4us dead-zone
+ * 330 Hz (3030.3us) pulse: 1500us center, 500us min, 2500us max. 4us dead-zone
  * operating at 4.8-6.0 VDC
  */
 
