@@ -35,7 +35,7 @@
 //  WDT disabled
 //  Other options are don't cares
 #pragma config FNOSC = PRIPLL, POSCMOD = HS, FPLLMUL = MUL_20, FPLLIDIV = DIV_2
-#pragma config FPBDIV = DIV_2, FPLLODIV = DIV_1 //80MHz
+#pragma config FPBDIV = DIV_2, FPLLODIV = DIV_1 // 80MHz
 #pragma config FWDTEN = OFF
 #define F_CPU 80000000L
 
@@ -70,9 +70,11 @@ int main(void) {
 void deviceInit() {
     int pbFreq;
 
-    //Configure the device for maximum performance.
-    //This macro sets flash wait states, PBCLK divider and DRM wait states based on the specified
-    //clock frequency.  It also turns on the cache mode if available.  Returns the PB frequency
+    // Configure the device for maximum performance.
+    // This macro sets flash wait states, PBCLK divider and DRM wait states
+    // based on the specified clock frequency.  
+    // It also turns on the cache mode if available.  
+    // Returns the PB frequency
     //pbFreq = SYSTEMConfigPerformance(F_CPU);
 
     //Microchip recommends typing unused pins to ground
@@ -92,7 +94,7 @@ void deviceInit() {
     TRISF = 0;
     TRISG = 0;
 
-    //Set the LEDs as outputs
+    // Set the LEDs as outputs
     prtLed1_4 &= ~((1 << bnLed1) | (1 << bnLed2) | (1 << bnLed3) | (1 << bnLed4)); //LLV
     trisLed1_4 &= ~((1 << bnLed1) | (1 << bnLed2) | (1 << bnLed3) | (1 << bnLed4)); //output
 
