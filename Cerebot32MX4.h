@@ -1,27 +1,27 @@
 /************************************************************************
-*																		*
-*	Cerebot32MX4.h	--	General Cerebot 32MX4Interface Declarations		*
-*																		*
-*************************************************************************
-*	Author:		Mark Taylor												*
-*	Copyright 2009, Digilent Inc.										*
-*************************************************************************
-*	Module Description:													*
-*																		*
-*	This header file contains symbol declarations describing ports and	*
-*	pins for access to the on-board i/o devices and interface connector	*
-*	pins on the Digilent Cerebot 32MX4 board.							*
-*																		*
-*************************************************************************
-*	Revision History:													*
-*																		*
-*	09/22/2009(MarkT): created											*
-*																		*
-************************************************************************/
+ *																		*
+ *	Cerebot32MX4.h	--	General Cerebot 32MX4Interface Declarations		*
+ *																		*
+ *************************************************************************
+ *	Author:		Mark Taylor												*
+ *	Copyright 2009, Digilent Inc.										*
+ *************************************************************************
+ *	Module Description:													*
+ *																		*
+ *	This header file contains symbol declarations describing ports and	*
+ *	pins for access to the on-board i/o devices and interface connector	*
+ *	pins on the Digilent Cerebot 32MX4 board.							*
+ *																		*
+ *************************************************************************
+ *	Revision History:													*
+ *																		*
+ *	09/22/2009(MarkT): created											*
+ *																		*
+ ************************************************************************/
 
 
 /* ---------------------------------------------------------------
-				On-Board I/O Declarations
+                On-Board I/O Declarations
    --------------------------------------------------------------- */
 
 #define	trisLed1		TRISB
@@ -45,7 +45,7 @@
 
 
 /* ---------------------------------------------------------------
-			Symbol Definitions for Servo Connectors
+            Symbol Definitions for Servo Connectors
    --------------------------------------------------------------- */
 
 #define	prtServo1		PORTG
@@ -82,7 +82,7 @@
 #define	bnServo8	1
 
 /* ---------------------------------------------------------------
-				Interface Connector Declarations
+                Interface Connector Declarations
    --------------------------------------------------------------- */
 
 /***************************************************************/
