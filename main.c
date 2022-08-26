@@ -57,13 +57,12 @@ void __ISR(_TIMER_2_VECTOR, ipl7) _Timer2Handler(void) {
 
     T2_intF();
 
-    //    prtServo1 |= (1 << bnServo1);
+    prtServo1 = 0xFF;
     IFS0CLR = (1 << 8); // clear interrupt flag for timer 1
 }
 
-void __ISR(_OUTPUT_COMPARE_2_VECTOR, IPL7) _OC2_IntHandler(void) {
-    //    prtServo1 &= ~(1 << bnServo1);
-    PORTBSET = (1 << bnLed1);
+void __ISR(_OUTPUT_COMPARE_2_VECTOR, ipl7) OC2_IntHandler(void) {
+    prtServo1 = 0;
 
     IFS0CLR = (1 << 10); // clear interrupt flag for output compare 1
 
@@ -85,7 +84,7 @@ int main(void) {
         Wait_ms(1000);
         PORTBCLR = (1 << bnLed1);
         PORTBCLR = (1 << bnLed2);
-        OC2R = 25000;
+//        OC2R = 25000;
         Wait_ms(1000);
     }
 
@@ -93,14 +92,6 @@ int main(void) {
 }
 
 void deviceInit() {
-    int pbFreq;
-
-    // Configure the device for maximum performance.
-    // This macro sets flash wait states, PBCLK divider and DRM wait states
-    // based on the specified clock frequency.  
-    // It also turns on the cache mode if available.  
-    // Returns the PB frequency
-    pbFreq = SYSTEMConfigPerformance(F_CPU);
 
     //Microchip recommends typing unused pins to ground
     PORTA = 0;
