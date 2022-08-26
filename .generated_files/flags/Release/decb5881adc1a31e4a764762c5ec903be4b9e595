@@ -1,1 +1,0 @@
- $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -fno-common   -DXPRJ_Release=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  E:\EDocuments\Code\32MX4\C32MX_Servo.X\main.c
