@@ -9,6 +9,7 @@
  * operating at 4.8-6.0 VDC
  */
 
+#include "Cerebot32MX4.h"
 #include <xc.h>
 #include <sys/attribs.h>
 
@@ -72,13 +73,13 @@ int main(void) {
     deviceInit();
     appInit();    
 
-    while (1) {
-        PORTBSET = (1 << bnLed1);
-        PORTBSET = (1 << bnLed2);
+    while (fTrue) {
+        LATBSET = (1 << bnLed1);
+        LATBSET = (1 << bnLed2);
         Wait_ms(1000);
         
-        PORTBCLR = (1 << bnLed1);
-        PORTBCLR = (1 << bnLed2);
+        LATBCLR = (1 << bnLed1);
+        LATBCLR = (1 << bnLed2);
         Wait_ms(1000);
     }
 
