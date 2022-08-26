@@ -1,0 +1,46 @@
+make -f nbproject/Makefile-PRO_Comparison.mk SUBPROJECTS= .clean-conf
+make[1]: Entering directory 'E:/EDocuments/Code/32MX4/C32MX_Servo.X'
+rm -f  -r .ca/build/PRO_Comparison/production
+rm -f  -r .ca/dist/PRO_Comparison/production
+make[1]: Leaving directory 'E:/EDocuments/Code/32MX4/C32MX_Servo.X'
+[32mCLEAN SUCCESSFUL (total time: 102ms)[0m
+make -f nbproject/Makefile-PRO_Comparison.mk SUBPROJECTS= .build-conf
+make[1]: Entering directory 'E:/EDocuments/Code/32MX4/C32MX_Servo.X'
+make  -f nbproject/Makefile-PRO_Comparison.mk .ca/dist/PRO_Comparison/production/C32MX_Servo.X.production.hex
+make[2]: Entering directory 'E:/EDocuments/Code/32MX4/C32MX_Servo.X'
+"C:\Program Files\Microchip\xc32\v4.10\bin\xc32-gcc.exe"    -g -x c -c -mprocessor=32MX460F512L  -O1 -fno-common -MP -MMD -MF ".ca/build/PRO_Comparison/production/main.o.d" -o .ca/build/PRO_Comparison/production/main.o main.c    -DXPRJ_PRO_Comparison=PRO_Comparison      -mafrlcsj -mdfp="C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC32MX_DFP/1.5.259"  
+[31mmain.c:59:34: warning: Interrupt priority IPL7 is deprecated. Specify as 'IPL7{AUTO|SOFT|SRS|SAVEALL}' instead.
+ void __ISR(_TIMER_1_VECTOR, ipl7) _Timer1Handler(void) {
+                                  ^~~~~~~~~~~~~~
+main.c:65:43: warning: Interrupt priority IPL7 is deprecated. Specify as 'IPL7{AUTO|SOFT|SRS|SAVEALL}' instead.
+ void __ISR(_OUTPUT_COMPARE_1_VECTOR, ipl7) _OC1_IntHandler(void) {
+                                           ^~~~~~~~~~~~~~~
+[0m
+[31mmain.c:59:1: warning: Interrupt priority IPL7 is deprecated. Specify as 'IPL7{AUTO|SOFT|SRS|SAVEALL}' instead.
+ void __ISR(_TIMER_1_VECTOR, ipl7) _Timer1Handler(void) {
+ ^~~~
+main.c:65:1: warning: Interrupt priority IPL7 is deprecated. Specify as 'IPL7{AUTO|SOFT|SRS|SAVEALL}' instead.
+ void __ISR(_OUTPUT_COMPARE_1_VECTOR, ipl7) _OC1_IntHandler(void) {
+ ^~~~
+[0m
+"C:\Program Files\Microchip\xc32\v4.10\bin\xc32-gcc.exe"   -mprocessor=32MX460F512L  -o .ca/dist/PRO_Comparison/production/C32MX_Servo.X.production.elf .ca/build/PRO_Comparison/production/main.o          -DXPRJ_PRO_Comparison=PRO_Comparison    -mafrlcsj   -Wl,--defsym=__MPLAB_BUILD=1,--no-code-in-dinit,--no-dinit-in-serial-mem,-Map=".ca/dist/PRO_Comparison/production/C32MX_Servo.X.production.map",--memorysummary,.ca/dist/PRO_Comparison/production/memoryfile.xml -mdfp="C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC32MX_DFP/1.5.259"
+[31m
+Info: Loading file: ./C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC32MX_DFP/1.5.259/xc32/32MX460F512L/p32MX460F512L.ld[0m
+[31m
+Info: Loading file: ./C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC32MX_DFP/1.5.259/xc32/32MX460F512L/p32MX460F512L.ld[0m
+
+PRO Optimization:
+-------------------------------------------------------------------------------
+Total program memory used (bytes):     5576 
+Total data memory used (bytes):        20 
+-------------------------------------------------------------------------------
+
+Current Optimization:
+-------------------------------------------------------------------------------
+Total program memory used (bytes):     7604 
+Total data memory used (bytes):        20 
+-------------------------------------------------------------------------------
+"C:\Program Files\Microchip\xc32\v4.10\bin"\\xc32-bin2hex .ca/dist/PRO_Comparison/production/C32MX_Servo.X.production.elf 
+make[2]: Leaving directory 'E:/EDocuments/Code/32MX4/C32MX_Servo.X'
+make[1]: Leaving directory 'E:/EDocuments/Code/32MX4/C32MX_Servo.X'
+[32mBUILD SUCCESSFUL (total time: 2s)[0m

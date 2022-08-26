@@ -1,0 +1,25 @@
+make -f nbproject/Makefile-ReleaseActiveCA.mk SUBPROJECTS= .clean-conf
+make[1]: Entering directory 'E:/EDocuments/Code/32MX4/C32MX_Servo.X'
+rm -f  -r .ca/build/ReleaseActiveCA/production
+rm -f  -r .ca/dist/ReleaseActiveCA/production
+make[1]: Leaving directory 'E:/EDocuments/Code/32MX4/C32MX_Servo.X'
+[32mCLEAN SUCCESSFUL (total time: 153ms)[0m
+make -f nbproject/Makefile-ReleaseActiveCA.mk SUBPROJECTS= .build-conf
+make[1]: Entering directory 'E:/EDocuments/Code/32MX4/C32MX_Servo.X'
+make  -f nbproject/Makefile-ReleaseActiveCA.mk .ca/dist/ReleaseActiveCA/production/C32MX_Servo.X.production.hex
+make[2]: Entering directory 'E:/EDocuments/Code/32MX4/C32MX_Servo.X'
+"C:\Program Files\Microchip\xc32\v4.10\bin\xc32-gcc.exe"    -g -x c -c -mprocessor=32MX460F512L  -O1 -fno-common -MP -MMD -MF ".ca/build/ReleaseActiveCA/production/main.o.d" -o .ca/build/ReleaseActiveCA/production/main.o main.c    -DXPRJ_ReleaseActiveCA=ReleaseActiveCA      -mdfp="C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC32MX_DFP/1.5.259"  
+[31mmain.c:59:1: warning: Interrupt priority IPL7 is deprecated. Specify as 'IPL7{AUTO|SOFT|SRS|SAVEALL}' instead.
+ void __ISR(_TIMER_1_VECTOR, ipl7) _Timer1Handler(void) {
+ ^~~~
+main.c:65:1: warning: Interrupt priority IPL7 is deprecated. Specify as 'IPL7{AUTO|SOFT|SRS|SAVEALL}' instead.
+ void __ISR(_OUTPUT_COMPARE_1_VECTOR, ipl7) _OC1_IntHandler(void) {
+ ^~~~
+[0m
+"C:\Program Files\Microchip\xc32\v4.10\bin\xc32-gcc.exe"   -mprocessor=32MX460F512L  -o .ca/dist/ReleaseActiveCA/production/C32MX_Servo.X.production.elf .ca/build/ReleaseActiveCA/production/main.o          -DXPRJ_ReleaseActiveCA=ReleaseActiveCA      -Wl,--defsym=__MPLAB_BUILD=1,--no-code-in-dinit,--no-dinit-in-serial-mem,-Map=".ca/dist/ReleaseActiveCA/production/C32MX_Servo.X.production.map",--memorysummary,.ca/dist/ReleaseActiveCA/production/memoryfile.xml -mdfp="C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC32MX_DFP/1.5.259"
+"C:\Program Files\Microchip\xc32\v4.10\bin"\\xc32-bin2hex .ca/dist/ReleaseActiveCA/production/C32MX_Servo.X.production.elf 
+[31m
+make[2]: Leaving directory 'E:/EDocuments/Code/32MX4/C32MX_Servo.X'
+make[1]: Leaving directory 'E:/EDocuments/Code/32MX4/C32MX_Servo.X'
+Info: Loading file: ./C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC32MX_DFP/1.5.259/xc32/32MX460F512L/p32MX460F512L.ld[0m
+[32mBUILD SUCCESSFUL (total time: 1s)[0m

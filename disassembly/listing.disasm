@@ -1,7 +1,7 @@
 Disassembly Listing for C32MX_Servo
 Generated From:
 E:/EDocuments/Code/32MX4/C32MX_Servo.X/dist/Debug/debug/C32MX_Servo.X.debug.elf
-Aug 25, 2022 5:50:59 PM
+Aug 25, 2022 6:03:48 PM
 
 ---  e:/edocuments/code/32mx4/c32mx_servo.x/main.c  -----------------------------------------------------
 1:                   /* 
@@ -35,10 +35,10 @@ Aug 25, 2022 5:50:59 PM
 29:                  /* ------------------------------------------------------------ */
 30:                  volatile int t_chg = 5;
 31:                  volatile int chg_cur = 0;
-32:                  volatile int m_chg = 20;  // The period and mag of the hard-coded
+32:                  volatile int m_chg = 20; // The period and mag of the hard-coded
 33:                  volatile int m_cur = 0;
 34:                  volatile int dt = 1;
-35:                                              // servo movements, in main
+35:                  // servo movements, in main
 36:                  
 37:                  /* ------------------------------------------------------------ */
 38:                  /*				Set Up of System Clock							*/
@@ -64,100 +64,98 @@ Aug 25, 2022 5:50:59 PM
 58:                  /* ------------------------------------------------------------ */
 59:                  void __ISR(_TIMER_1_VECTOR, ipl7auto) Timer1Handler(void) {
 60:                      prtServo1 = (1 << bnServo1);
-61:                      if(chg_cur == 0){
+61:                      if (chg_cur == 0) {
 62:                          chg_cur = t_chg;
-63:                          m_cur = m_cur + m_chg * dt;
-64:                          OC1R = m_cur;
-65:                      }
-66:                      else{
-67:                          chg_cur--;
-68:                      }
-69:                      
-70:                      if((m_cur >= servo_highest_us)||(m_cur <= servo_lowest_us)){
-71:                          dt *= -1;
+63:                  
+64:                          if ((m_cur >= servo_highest_us) || (m_cur <= servo_lowest_us)) {
+65:                              dt *= -1;
+66:                          }
+67:                  
+68:                          m_cur = m_cur + m_chg * dt;
+69:                          OC1R = m_cur;
+70:                      } else {
+71:                          chg_cur--;
 72:                      }
-73:                      
-74:                      
-75:                      
-76:                      IFS0CLR = (1 << 4); // clear interrupt flag for timer 1
-77:                  }
-78:                  
-79:                  void __ISR(_OUTPUT_COMPARE_1_VECTOR, ipl7auto) OC1_IntHandler(void) {
-80:                      prtServo1 &= ~(1 << bnServo1);
-81:                      IFS0CLR = (1 << 6); // clear interrupt flag for output compare 1	
-82:                  }
-83:                  
-84:                  /*
-85:                   *  main
-86:                   */
-87:                  int main(void) {
-88:                      
-89:                      deviceInit();
-90:                      appInit();
-91:                      
-92:                      m_cur = servo_neutral_us;    
-93:                      
-94:                      while(1){
-95:                          _nop();
-96:                      }
-97:                  
-98:                      return (EXIT_SUCCESS);
-99:                  }
-100:                 
-101:                 void deviceInit() {
-102:                 //    int pbFreq;
-103:                 
-104:                     // Configure the device for maximum performance.
-105:                     // This macro sets flash wait states, PBCLK divider and DRM wait states
-106:                     // based on the specified clock frequency.  
-107:                     // It also turns on the cache mode if available.  
-108:                     // Returns the PB frequency
-109:                     //pbFreq = SYSTEMConfigPerformance(F_CPU);
-110:                 
-111:                     //Microchip recommends typing unused pins to ground
-112:                     PORTA = 0;
-113:                     PORTB = 0;
-114:                     PORTC = 0;
-115:                     PORTD = 0;
-116:                     PORTE = 0;
-117:                     PORTF = 0;
-118:                     PORTG = 0;
-119:                 
-120:                     TRISA = 0;
-121:                     TRISB = 0;
-122:                     TRISC = 0;
-123:                     TRISD = 0;
-124:                     TRISE = 0;
-125:                     TRISF = 0;
-126:                     TRISG = 0;
-127:                 
-128:                     // Set the LEDs as outputs
-129:                     prtLed1_4 &= ~((1 << bnLed1) | (1 << bnLed2) | (1 << bnLed3) | (1 << bnLed4)); //LLV
-130:                     trisLed1_4 &= ~((1 << bnLed1) | (1 << bnLed2) | (1 << bnLed3) | (1 << bnLed4)); //output
-131:                 
-132:                     //Set up the i/o pins we are using for the servo channels
-133:                     //as outputs.
-134:                     prtServo1 &= ~(1 << bnServo1);
-135:                     trisServo1 &= ~(1 << bnServo1);
-136:                 }
-137:                 
-138:                 void appInit() {
-139:                     // Set up timer 1 with overflow and output compare
-140:                     OC1CON |= (2 << 0); // OCM mode 2, init high, low on compare
-141:                     OC1R |= servo_neutral_us; // Start off with the servo in the middle
-142:                     IPC1 |= (7 << 2) | (2 << 0) | (7 << 18) | (2 << 16);  // Interrupt P7S2 for both
-143:                     IFS0 &= ~(1 << 4) | ~(1 << 6);  // Clear the int flags for T1 and OC1
-144:                     IEC0 |= (1 << 4) | (1 << 6);  // Enable ints for T1 and OC1  
-145:                     
-146:                     T1CON &= ~0xffff;  // Clear T1 control reg
-147:                     TMR1 = 0x0;  // Reset its count
-148:                     PR1 = 30303U;  // Set the period to 3030.3us (8/FCPU=0.1us)
-149:                     T1CON |= (1 << 15);  // Enable T1 with no prescale    
-150:                     
-151:                     // Enable multi-vector interrupts.
-152:                 	INTEnableSystemMultiVectoredInt();
-153:                     return;
-154:                 }
+73:                  
+74:                      IFS0CLR = (1 << 4); // clear interrupt flag for timer 1
+75:                  }
+76:                  
+77:                  void __ISR(_OUTPUT_COMPARE_1_VECTOR, ipl7auto) OC1_IntHandler(void) {
+78:                      prtServo1 &= ~(1 << bnServo1);
+79:                      IFS0CLR = (1 << 6); // clear interrupt flag for output compare 1	
+80:                  }
+81:                  
+82:                  /*
+83:                   *  main
+84:                   */
+85:                  int main(void) {
+86:                  
+87:                      deviceInit();
+88:                      appInit();
+89:                  
+90:                      m_cur = servo_neutral_us;
+91:                  
+92:                      while (1) {
+93:                          _nop();
+94:                      }
+95:                  
+96:                      return (EXIT_SUCCESS);
+97:                  }
+98:                  
+99:                  void deviceInit() {
+100:                     //    int pbFreq;
+101:                 
+102:                     // Configure the device for maximum performance.
+103:                     // This macro sets flash wait states, PBCLK divider and DRM wait states
+104:                     // based on the specified clock frequency.  
+105:                     // It also turns on the cache mode if available.  
+106:                     // Returns the PB frequency
+107:                     //pbFreq = SYSTEMConfigPerformance(F_CPU);
+108:                 
+109:                     //Microchip recommends typing unused pins to ground
+110:                     PORTA = 0;
+111:                     PORTB = 0;
+112:                     PORTC = 0;
+113:                     PORTD = 0;
+114:                     PORTE = 0;
+115:                     PORTF = 0;
+116:                     PORTG = 0;
+117:                 
+118:                     TRISA = 0;
+119:                     TRISB = 0;
+120:                     TRISC = 0;
+121:                     TRISD = 0;
+122:                     TRISE = 0;
+123:                     TRISF = 0;
+124:                     TRISG = 0;
+125:                 
+126:                     // Set the LEDs as outputs
+127:                     prtLed1_4 &= ~((1 << bnLed1) | (1 << bnLed2) | (1 << bnLed3) | (1 << bnLed4)); //LLV
+128:                     trisLed1_4 &= ~((1 << bnLed1) | (1 << bnLed2) | (1 << bnLed3) | (1 << bnLed4)); //output
+129:                 
+130:                     //Set up the i/o pins we are using for the servo channels
+131:                     //as outputs.
+132:                     prtServo1 &= ~(1 << bnServo1);
+133:                     trisServo1 &= ~(1 << bnServo1);
+134:                 }
+135:                 
+136:                 void appInit() {
+137:                     // Set up timer 1 with overflow and output compare
+138:                     OC1CON |= (2 << 0); // OCM mode 2, init high, low on compare
+139:                     OC1R |= servo_neutral_us; // Start off with the servo in the middle
+140:                     IPC1 |= (7 << 2) | (2 << 0) | (7 << 18) | (2 << 16); // Interrupt P7S2 for both
+141:                     IFS0 &= ~(1 << 4) | ~(1 << 6); // Clear the int flags for T1 and OC1
+142:                     IEC0 |= (1 << 4) | (1 << 6); // Enable ints for T1 and OC1  
+143:                 
+144:                     T1CON &= ~0xffff; // Clear T1 control reg
+145:                     TMR1 = 0x0; // Reset its count
+146:                     PR1 = 30303U; // Set the period to 3030.3us (8/FCPU=0.1us)
+147:                     T1CON |= (1 << 15); // Enable T1 with no prescale    
+148:                 
+149:                     // Enable multi-vector interrupts.
+150:                     INTEnableSystemMultiVectoredInt();
+151:                     return;
+152:                 }
 -----*  Optimizer-Generated Procedural Abstractions  *----------------------------------------------
 9D001E54  415DE800   RDPGPR SP, SP
 9D001E58  401B7000   MFC0 K1, EPC
@@ -184,36 +182,36 @@ Aug 25, 2022 5:50:59 PM
 9D001EAC  24031000   ADDIU V1, ZERO, 4096
 9D001EB0  AC436190   SW V1, 24976(V0)
 9D001EB4  8F82801C   LW V0, -32740(GP)
-9D001EB8  1440000F   BNE V0, ZERO, 0x9D001EF8
+9D001EB8  1440001A   BNE V0, ZERO, 0x9D001F24
 9D001EBC  00000000   NOP
 9D001EC0  8F828010   LW V0, -32752(GP)
 9D001EC4  AF82801C   SW V0, -32740(GP)
-9D001EC8  8F838014   LW V1, -32748(GP)
-9D001ECC  8F828018   LW V0, -32744(GP)
-9D001ED0  70621802   MUL V1, V1, V0
-9D001ED4  8F828020   LW V0, -32736(GP)
-9D001ED8  00621021   ADDU V0, V1, V0
-9D001EDC  AF828020   SW V0, -32736(GP)
-9D001EE0  8F828020   LW V0, -32736(GP)
-9D001EE4  00401825   OR V1, V0, ZERO
-9D001EE8  3C02BF80   LUI V0, -16512
-9D001EEC  AC433010   SW V1, 12304(V0)
-9D001EF0  10000004   BEQ ZERO, ZERO, 0x9D001F04
-9D001EF4  00000000   NOP
-9D001EF8  8F82801C   LW V0, -32740(GP)
-9D001EFC  2442FFFF   ADDIU V0, V0, -1
-9D001F00  AF82801C   SW V0, -32740(GP)
-9D001F04  8F828020   LW V0, -32736(GP)
-9D001F08  284209C4   SLTI V0, V0, 2500
-9D001F0C  10400005   BEQ V0, ZERO, 0x9D001F24
-9D001F10  00000000   NOP
-9D001F14  8F828020   LW V0, -32736(GP)
-9D001F18  284201F5   SLTI V0, V0, 501
-9D001F1C  10400004   BEQ V0, ZERO, 0x9D001F30
+9D001EC8  8F828020   LW V0, -32736(GP)
+9D001ECC  284209C4   SLTI V0, V0, 2500
+9D001ED0  10400005   BEQ V0, ZERO, 0x9D001EE8
+9D001ED4  00000000   NOP
+9D001ED8  8F828020   LW V0, -32736(GP)
+9D001EDC  284201F5   SLTI V0, V0, 501
+9D001EE0  10400004   BEQ V0, ZERO, 0x9D001EF4
+9D001EE4  00000000   NOP
+9D001EE8  8F828018   LW V0, -32744(GP)
+9D001EEC  00021023   SUBU V0, ZERO, V0
+9D001EF0  AF828018   SW V0, -32744(GP)
+9D001EF4  8F838014   LW V1, -32748(GP)
+9D001EF8  8F828018   LW V0, -32744(GP)
+9D001EFC  70621802   MUL V1, V1, V0
+9D001F00  8F828020   LW V0, -32736(GP)
+9D001F04  00621021   ADDU V0, V1, V0
+9D001F08  AF828020   SW V0, -32736(GP)
+9D001F0C  8F828020   LW V0, -32736(GP)
+9D001F10  00401825   OR V1, V0, ZERO
+9D001F14  3C02BF80   LUI V0, -16512
+9D001F18  AC433010   SW V1, 12304(V0)
+9D001F1C  10000004   BEQ ZERO, ZERO, 0x9D001F30
 9D001F20  00000000   NOP
-9D001F24  8F828018   LW V0, -32744(GP)
-9D001F28  00021023   SUBU V0, ZERO, V0
-9D001F2C  AF828018   SW V0, -32744(GP)
+9D001F24  8F82801C   LW V0, -32740(GP)
+9D001F28  2442FFFF   ADDIU V0, V0, -1
+9D001F2C  AF82801C   SW V0, -32740(GP)
 9D001F30  3C02BF88   LUI V0, -16504
 9D001F34  24030010   ADDIU V1, ZERO, 16
 9D001F38  AC431034   SW V1, 4148(V0)
@@ -10421,6 +10419,8 @@ Aug 25, 2022 5:50:59 PM
 9D000FE0  1040FFFB   BEQ V0, ZERO, OSCSetPBDIV
 9D000FE8  8FC20020   LW V0, 32(FP)
 9D001070  8FC20018   LW V0, 24(FP)
+9D001074  10400014   BEQ V0, ZERO, OSCSetPBDIV
+9D001078  00000000   NOP
 9D00107C  3C02BF88   LUI V0, -16504
 9D00108C  AFC2001C   SW V0, 28(FP)
 9D001090  8FC2001C   LW V0, 28(FP)
@@ -10428,6 +10428,8 @@ Aug 25, 2022 5:50:59 PM
 9D0010A8  3C02BF88   LUI V0, -16504
 9D0010B8  1040FFFB   BEQ V0, ZERO, OSCSetPBDIV
 9D0010C8  3C02BF88   LUI V0, -16504
+9D0010CC  24031000   ADDIU V1, ZERO, 4096
+9D0010D0  AC433004   SW V1, 12292(V0)
 9D001164  3C02BF88   LUI V0, -16504
 9D001174  AFC20020   SW V0, 32(FP)
 9D001178  8FC20020   LW V0, 32(FP)

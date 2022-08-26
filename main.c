@@ -9,29 +9,24 @@
  * operating at 4.8-6.0 VDC
  */
 
-#define _SUPPRESS_PLIB_WARNING
 
-#include "Cerebot32MX4.h"
 #include <p32xxxx.h>
 #include <plib.h> 
-//#include <stdint.h>
+#include <stdint.h>
 
 #include "stdtypes.h"
+#include "Cerebot32MX4.h"
 
-#define servoPeriod_us 3030
-#define servo_neutral_us 1500
-#define servo_lowest_us 500
-#define servo_highest_us 2500
+#define servo_neutral_us 15000
+#define servo_lowest_us 5000
+#define servo_highest_us 25000
 
 
 /* ------------------------------------------------------------ */
 /*				Global Variables								*/
 /* ------------------------------------------------------------ */
-volatile int t_chg = 5;
-volatile int chg_cur = 0;
-volatile int m_chg = 20; // The period and mag of the hard-coded
-volatile int m_cur = 0;
-volatile int dt = 1;
+unsigned int change_delay;
+
 // servo movements, in main
 
 /* ------------------------------------------------------------ */
@@ -51,32 +46,27 @@ volatile int dt = 1;
 /* ------------------------------------------------------------ */
 void deviceInit(void);
 void appInit(void);
+void T2_intF(void);
+void Wait_ms(WORD delay);
 
 /* ------------------------------------------------------------ */
 /*				Interrupt Service Routines						*/
 
 /* ------------------------------------------------------------ */
-void __ISR(_TIMER_1_VECTOR, ipl7auto) Timer1Handler(void) {
-    prtServo1 = (1 << bnServo1);
-    if (chg_cur == 0) {
-        chg_cur = t_chg;
+void __ISR(_TIMER_2_VECTOR, ipl7) _Timer2Handler(void) {
 
-        if ((m_cur >= servo_highest_us) || (m_cur <= servo_lowest_us)) {
-            dt *= -1;
-        }
+    T2_intF();
 
-        m_cur = m_cur + m_chg * dt;
-        OC1R = m_cur;
-    } else {
-        chg_cur--;
-    }
-
-    IFS0CLR = (1 << 4); // clear interrupt flag for timer 1
+    //    prtServo1 |= (1 << bnServo1);
+    IFS0CLR = (1 << 8); // clear interrupt flag for timer 1
 }
 
-void __ISR(_OUTPUT_COMPARE_1_VECTOR, ipl7auto) OC1_IntHandler(void) {
-    prtServo1 &= ~(1 << bnServo1);
-    IFS0CLR = (1 << 6); // clear interrupt flag for output compare 1	
+void __ISR(_OUTPUT_COMPARE_2_VECTOR, IPL7) _OC2_IntHandler(void) {
+    //    prtServo1 &= ~(1 << bnServo1);
+    PORTBSET = (1 << bnLed1);
+
+    IFS0CLR = (1 << 10); // clear interrupt flag for output compare 1
+
 }
 
 /*
@@ -86,25 +76,31 @@ int main(void) {
 
     deviceInit();
     appInit();
-
-    m_cur = servo_neutral_us;
+    
 
     while (1) {
-        _nop();
+        PORTBSET = (1 << bnLed1);
+        PORTBSET = (1 << bnLed2);
+        //        OC2R = 5000;
+        Wait_ms(1000);
+        PORTBCLR = (1 << bnLed1);
+        PORTBCLR = (1 << bnLed2);
+        OC2R = 25000;
+        Wait_ms(1000);
     }
 
-    return (EXIT_SUCCESS);
+    return 0;
 }
 
 void deviceInit() {
-    //    int pbFreq;
+    int pbFreq;
 
     // Configure the device for maximum performance.
     // This macro sets flash wait states, PBCLK divider and DRM wait states
     // based on the specified clock frequency.  
     // It also turns on the cache mode if available.  
     // Returns the PB frequency
-    //pbFreq = SYSTEMConfigPerformance(F_CPU);
+    pbFreq = SYSTEMConfigPerformance(F_CPU);
 
     //Microchip recommends typing unused pins to ground
     PORTA = 0;
@@ -124,8 +120,8 @@ void deviceInit() {
     TRISG = 0;
 
     // Set the LEDs as outputs
-    prtLed1_4 &= ~((1 << bnLed1) | (1 << bnLed2) | (1 << bnLed3) | (1 << bnLed4)); //LLV
-    trisLed1_4 &= ~((1 << bnLed1) | (1 << bnLed2) | (1 << bnLed3) | (1 << bnLed4)); //output
+    prtLed1_4 &= ~((1 << bnLed1) | (1 << bnLed2)); //LLV
+    trisLed1_4 &= ~((1 << bnLed1) | (1 << bnLed2)); //output
 
     //Set up the i/o pins we are using for the servo channels
     //as outputs.
@@ -134,19 +130,50 @@ void deviceInit() {
 }
 
 void appInit() {
+    
+    change_delay = 20;
     // Set up timer 1 with overflow and output compare
-    OC1CON |= (2 << 0); // OCM mode 2, init high, low on compare
-    OC1R |= servo_neutral_us; // Start off with the servo in the middle
-    IPC1 |= (7 << 2) | (2 << 0) | (7 << 18) | (2 << 16); // Interrupt P7S2 for both
-    IFS0 &= ~(1 << 4) | ~(1 << 6); // Clear the int flags for T1 and OC1
-    IEC0 |= (1 << 4) | (1 << 6); // Enable ints for T1 and OC1  
+    OC2CON |= (1 << 1) | (1 << 0); // OCM mode 2, init high, low on compare
+    OC2R = 15000; // Start off with the servo in the middle
 
-    T1CON &= ~0xffff; // Clear T1 control reg
-    TMR1 = 0x0; // Reset its count
-    PR1 = 30303U; // Set the period to 3030.3us (8/FCPU=0.1us)
-    T1CON |= (1 << 15); // Enable T1 with no prescale    
+    IPC2SET = (1 << 20) | (1 << 19) | (1 << 18) | (1 << 16); // Interrupt P7S2 for both
+    IFS0CLR = (1 << 10); // Clear the int flags for T1 and OC1
+    IEC0SET = (1 << 10); // Enable ints for T1 and OC1  
+
+    TMR2 = 0; // Reset its count
+    PR2 = servo_neutral_us; // Set the period to 3030.3us (8/FCPU=0.1us)
+    IPC2SET = (1 << 4) | (1 << 3) | (1 << 2) | (1 << 0);
+    IFS0CLR = (1 << 8);
+    IEC0SET = (1 << 8);
+    T2CONSET = (1 << 15) | (1 << 5) | (1 << 4);
+    OC2CONSET = (1 << 15); // Enable T1 with no prescale
+    prtServo1 |= (1 << bnServo1);
 
     // Enable multi-vector interrupts.
     INTEnableSystemMultiVectoredInt();
-    return;
 }
+
+void T2_intF(void) {
+
+    OC2R += 100;
+    if (change_delay == 0) {
+        OC2RSET = 5000;
+        change_delay = 20;
+    }
+
+    change_delay -= 1;
+
+}
+
+void Wait_ms(WORD delay) {
+
+    WORD i;
+
+    while (delay > 0) {
+
+        for (i = 0; i < 7270; i++) {
+            _nop(); //Optimization settings can remove empty loops, fill with nops.
+        }//end for
+        delay -= 1;
+    }//end while
+}//end Wait_ms()
