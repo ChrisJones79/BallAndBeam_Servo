@@ -25,7 +25,7 @@
 /* ------------------------------------------------------------ */
 /*				Global Variables								*/
 /* ------------------------------------------------------------ */
-unsigned int change_delay; // servo movements, in main
+volatile unsigned int change_delay; // servo movements, in main
 
 /* ------------------------------------------------------------ */
 /*				Set Up of System Clock							*/
@@ -53,17 +53,20 @@ void Wait_ms(WORD delay);
 /* ------------------------------------------------------------ */
 void 
 __ISR(_TIMER_2_VECTOR, ipl7auto) Timer2Handler(void) {
-
+    __builtin_disable_interrupts();
     LATGSET = (1 << bnServo1);
     IFS0bits.T2IF = 0;
+    __builtin_enable_interrupts();
+
 }
 
 void 
-__ISR(_OUTPUT_COMPARE_2_VECTOR, ipl7auto) OC2_IntHandler(void) {
-
+__ISR(_OUTPUT_COMPARE_2_VECTOR, ipl7SRS) OC2_IntHandler(void) {
+    __builtin_disable_interrupts();
     changeServoPeriod();
     LATG = 0;
     IFS0bits.OC2IF = 0;
+    __builtin_enable_interrupts();
 }
 
 /*
@@ -88,6 +91,8 @@ int main(void) {
 }
 
 void deviceInit() {
+    SYSTEMConfigPerformance(F_CPU);
+    
     //Microchip recommends typing unused pins to ground
     PORTA = 0;
     PORTB = 0;
@@ -142,7 +147,7 @@ void changeServoPeriod(void) {
 
     OC2R += 100;
     
-    if (change_delay == 0) {
+    if (change_delay <= 0) {
         OC2R = 5000;
         change_delay = 20;
     }
