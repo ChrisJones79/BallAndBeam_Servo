@@ -33,7 +33,7 @@
         <targetDevice>PIC32MX460F512L</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>Simulator</platformTool>
+        <platformTool>pk4hybrid</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>4.10</languageToolchainVersion>
         <platform>3</platform>
@@ -724,8 +724,8 @@
         <property key="communication.interface" value=""/>
         <property key="communication.interface.jtag" value="2wire"/>
         <property key="communication.speed" value="${communication.speed.default}"/>
-        <property key="debugoptions.debug-startup" value="Use system settings"/>
-        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="debugoptions.debug-startup" value="Halt at main"/>
+        <property key="debugoptions.reset-behaviour" value="Main"/>
         <property key="debugoptions.simultaneous.debug" value="false"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
         <property key="freeze.timers" value="false"/>
@@ -771,7 +771,7 @@
         <property key="programoptions.pgdconfig" value="pull down"/>
         <property key="programoptions.pgdresistor.value" value="4.7"/>
         <property key="programoptions.pgmentry.voltage" value="low"/>
-        <property key="programoptions.pgmspeed" value="Med"/>
+        <property key="programoptions.pgmspeed" value="Min"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
                   value="${memories.dataflash.default}"/>
@@ -1277,8 +1277,8 @@
         <property key="communication.interface" value=""/>
         <property key="communication.interface.jtag" value="2wire"/>
         <property key="communication.speed" value="${communication.speed.default}"/>
-        <property key="debugoptions.debug-startup" value="Use system settings"/>
-        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="debugoptions.debug-startup" value="Halt at main"/>
+        <property key="debugoptions.reset-behaviour" value="Main"/>
         <property key="debugoptions.simultaneous.debug" value="false"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
         <property key="freeze.timers" value="false"/>
@@ -1305,7 +1305,7 @@
         <property key="programoptions.pgdconfig" value="pull down"/>
         <property key="programoptions.pgdresistor.value" value="4.7"/>
         <property key="programoptions.pgmentry.voltage" value="low"/>
-        <property key="programoptions.pgmspeed" value="Med"/>
+        <property key="programoptions.pgmspeed" value="Min"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
                   value="${memories.dataflash.default}"/>
@@ -1333,7 +1333,7 @@
         <targetDevice>PIC32MX460F512L</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>SKDEPIC32PlatformTool</platformTool>
+        <platformTool>pk4hybrid</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>4.10</languageToolchainVersion>
         <platform>3</platform>
@@ -1511,7 +1511,7 @@
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="lastid" value=""/>
-        <property key="whatToProgram" value="bootConfig"/>
+        <property key="whatToProgram" value="internal"/>
       </SKDEPIC32PlatformTool>
       <Tool>
         <property key="ADC 1" value="true"/>
@@ -1584,7 +1584,7 @@
         <property key="programoptions.pgdconfig" value="pull down"/>
         <property key="programoptions.pgdresistor.value" value="4.7"/>
         <property key="programoptions.pgmentry.voltage" value="low"/>
-        <property key="programoptions.pgmspeed" value="Med"/>
+        <property key="programoptions.pgmspeed" value="Min"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
                   value="${memories.dataflash.default}"/>
@@ -1604,7 +1604,7 @@
         <property key="toolpack.updateoptions.packversion"
                   value="Press to select which tool pack to use"/>
         <property key="voltagevalue" value="3.25"/>
-        <property key="whatToProgram" value="bootConfig"/>
+        <property key="whatToProgram" value="internal"/>
       </Tool>
       <pk4hybrid>
         <property key="ADC 1" value="true"/>
@@ -1676,7 +1676,7 @@
         <property key="programoptions.pgdconfig" value="pull down"/>
         <property key="programoptions.pgdresistor.value" value="4.7"/>
         <property key="programoptions.pgmentry.voltage" value="low"/>
-        <property key="programoptions.pgmspeed" value="Med"/>
+        <property key="programoptions.pgmspeed" value="Min"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
                   value="${memories.dataflash.default}"/>
@@ -1947,13 +1947,13 @@
         <property key="programmerToGoImageName" value="C32MX_Servo_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
-        <property key="programoptions.ledbrightness" value="5"/>
+        <property key="programoptions.ledbrightness" value="3"/>
         <property key="programoptions.pgcconfig" value="pull down"/>
-        <property key="programoptions.pgcresistor.value" value="4.7"/>
+        <property key="programoptions.pgcresistor.value" value="1"/>
         <property key="programoptions.pgdconfig" value="pull down"/>
-        <property key="programoptions.pgdresistor.value" value="4.7"/>
+        <property key="programoptions.pgdresistor.value" value="1"/>
         <property key="programoptions.pgmentry.voltage" value="low"/>
-        <property key="programoptions.pgmspeed" value="Med"/>
+        <property key="programoptions.pgmspeed" value="Min"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
                   value="${memories.dataflash.default}"/>
@@ -2040,13 +2040,13 @@
         <property key="programmerToGoImageName" value="C32MX_Servo_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
-        <property key="programoptions.ledbrightness" value="5"/>
+        <property key="programoptions.ledbrightness" value="3"/>
         <property key="programoptions.pgcconfig" value="pull down"/>
-        <property key="programoptions.pgcresistor.value" value="4.7"/>
+        <property key="programoptions.pgcresistor.value" value="1"/>
         <property key="programoptions.pgdconfig" value="pull down"/>
-        <property key="programoptions.pgdresistor.value" value="4.7"/>
+        <property key="programoptions.pgdresistor.value" value="1"/>
         <property key="programoptions.pgmentry.voltage" value="low"/>
-        <property key="programoptions.pgmspeed" value="Med"/>
+        <property key="programoptions.pgmspeed" value="Min"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
                   value="${memories.dataflash.default}"/>
