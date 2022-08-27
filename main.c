@@ -9,9 +9,10 @@
  * operating at 4.8-6.0 VDC
  */
 
-#include "Cerebot32MX4.h"
+
 #include <xc.h>
-#include <sys/attribs.h>
+#include <p32xxxx.h>
+#include <plib.h>
 
 #include "stdtypes.h"
 #include "Cerebot32MX4.h"
@@ -133,7 +134,8 @@ void appInit() {
     change_delay = 20;
     
    // Enable multi-vector interrupts.
-    __builtin_enable_interrupts();
+    INTEnableSystemMultiVectoredInt();
+//    __builtin_enable_interrupts();
 }
 
 void changeServoPeriod(void) {
