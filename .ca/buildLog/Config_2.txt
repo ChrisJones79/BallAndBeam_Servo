@@ -3,23 +3,87 @@ make[1]: Entering directory 'E:/EDocuments/Code/32MX4/C32MX_Servo.X'
 rm -f  -r .ca/build/Config_2/production
 rm -f  -r .ca/dist/Config_2/production
 make[1]: Leaving directory 'E:/EDocuments/Code/32MX4/C32MX_Servo.X'
-[32mCLEAN SUCCESSFUL (total time: 100ms)[0m
+[32mCLEAN SUCCESSFUL (total time: 102ms)[0m
 make -f nbproject/Makefile-Config_2.mk SUBPROJECTS= .build-conf
 make[1]: Entering directory 'E:/EDocuments/Code/32MX4/C32MX_Servo.X'
 make  -f nbproject/Makefile-Config_2.mk .ca/dist/Config_2/production/C32MX_Servo.X.production.hex
 make[2]: Entering directory 'E:/EDocuments/Code/32MX4/C32MX_Servo.X'
 "C:\Program Files\Microchip\xc32\v4.10\bin\xc32-gcc.exe"    -g -x c -c -mprocessor=32MX460F512L  -O2 -fno-common -MP -MMD -MF ".ca/build/Config_2/production/main.o.d" -o .ca/build/Config_2/production/main.o main.c    -DXPRJ_Config_2=Config_2      -mdfp="C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC32MX_DFP/1.5.259"  
-[31mmain.c:59:1: warning: Interrupt priority IPL7 is deprecated. Specify as 'IPL7{AUTO|SOFT|SRS|SAVEALL}' instead.
- void __ISR(_TIMER_1_VECTOR, ipl7) _Timer1Handler(void) {
- ^~~~
-main.c:65:1: warning: Interrupt priority IPL7 is deprecated. Specify as 'IPL7{AUTO|SOFT|SRS|SAVEALL}' instead.
- void __ISR(_OUTPUT_COMPARE_1_VECTOR, ipl7) _OC1_IntHandler(void) {
- ^~~~
+[31mIn file included from main.c:15:
+c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\int.h:49:4: warning: #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases [-Wcpp]
+   #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases
+    ^~~~~~~
+In file included from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\int.h:84,
+                 from main.c:15:
+c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\int_3xx_4xx.h:52:4: warning: #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases [-Wcpp]
+   #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases
+    ^~~~~~~
+In file included from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\int_3xx_4xx.h:62,
+                 from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\int.h:84,
+                 from main.c:15:
+c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\legacy\int_3xx_4xx_legacy.h:47:4: warning: #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases [-Wcpp]
+   #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases
+    ^~~~~~~
+In file included from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\int.h:96,
+                 from main.c:15:
+c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\legacy\int_legacy.h:47:4: warning: #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases [-Wcpp]
+   #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases
+    ^~~~~~~
+In file included from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\system.h:57,
+                 from main.c:16:
+c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\pcache.h:50:4: warning: #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases [-Wcpp]
+   #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases
+    ^~~~~~~
+In file included from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\lock.h:37,
+                 from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\osc.h:44,
+                 from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\system.h:58,
+                 from main.c:16:
+c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\dma.h:46:4: warning: #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases [-Wcpp]
+   #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases
+    ^~~~~~~
+In file included from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\dma.h:79,
+                 from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\lock.h:37,
+                 from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\osc.h:44,
+                 from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\system.h:58,
+                 from main.c:16:
+c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\dma_3xx_4xx.h:54:4: warning: #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases [-Wcpp]
+   #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases
+    ^~~~~~~
+In file included from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\dma_3xx_4xx.h:2075,
+                 from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\dma.h:79,
+                 from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\lock.h:37,
+                 from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\osc.h:44,
+                 from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\system.h:58,
+                 from main.c:16:
+c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\legacy\dma_legacy.h:58:4: warning: #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases [-Wcpp]
+   #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases
+    ^~~~~~~
+[0m
+[31mIn file included from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\osc.h:44,
+                 from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\system.h:58,
+                 from main.c:16:
+c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\lock.h:47:4: warning: #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases [-Wcpp]
+   #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases
+    ^~~~~~~
+In file included from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\system.h:58,
+                 from main.c:16:
+c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\osc.h:53:4: warning: #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases [-Wcpp]
+   #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases
+    ^~~~~~~
+In file included from c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\system.h:60,
+                 from main.c:16:
+c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\bmx.h:51:4: warning: #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases [-Wcpp]
+   #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases
+    ^~~~~~~
+In file included from main.c:16:
+c:\program files\microchip\xc32\v4.10\pic32mx\include\lega-c\peripheral\system.h:74:4: warning: #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases [-Wcpp]
+   #warning The PLIB functions and macros in this file will be removed from the MPLAB XC32 C/C++ Compiler in future releases
+    ^~~~~~~
 [0m
 "C:\Program Files\Microchip\xc32\v4.10\bin\xc32-gcc.exe"   -mprocessor=32MX460F512L -O2 -o .ca/dist/Config_2/production/C32MX_Servo.X.production.elf .ca/build/Config_2/production/main.o          -DXPRJ_Config_2=Config_2      -Wl,--defsym=__MPLAB_BUILD=1,--no-code-in-dinit,--no-dinit-in-serial-mem,-Map=".ca/dist/Config_2/production/C32MX_Servo.X.production.map",--memorysummary,.ca/dist/Config_2/production/memoryfile.xml -mdfp="C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC32MX_DFP/1.5.259"
-[31m
-Info: Loading file: ./C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC32MX_DFP/1.5.259/xc32/32MX460F512L/p32MX460F512L.ld[0m
 "C:\Program Files\Microchip\xc32\v4.10\bin"\\xc32-bin2hex .ca/dist/Config_2/production/C32MX_Servo.X.production.elf 
 make[2]: Leaving directory 'E:/EDocuments/Code/32MX4/C32MX_Servo.X'
 make[1]: Leaving directory 'E:/EDocuments/Code/32MX4/C32MX_Servo.X'
+[31m
+Info: Loading file: ./C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC32MX_DFP/1.5.259/xc32/32MX460F512L/p32MX460F512L.ld[0m
 [32mBUILD SUCCESSFUL (total time: 1s)[0m

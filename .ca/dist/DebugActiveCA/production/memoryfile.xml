@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <project>                                  
-  <executable name="dist/Debug/production/C32MX_Servo.X.production.elf">                 
+  <executable name=".ca/dist/DebugActiveCA/production/C32MX_Servo.X.production.elf">                 
     <memory name="program">                 
       <units>bytes</units>                 
       <length>531968</length>                 
-      <used>11380</used>                     
-      <free>520588</free>                     
+      <used>8676</used>                     
+      <free>523292</free>                     
     </memory>                              
     <memory name="data">              
       <units>bytes</units>                 
       <length>32768</length>                 
-      <used>4</used>                     
-      <free>32764</free>                     
+      <used>12</used>                     
+      <free>32756</free>                     
     </memory>                              
   </executable>                            
 </project>                                 
